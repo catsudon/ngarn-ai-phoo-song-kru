@@ -47,7 +47,7 @@ const trimVideo = (fileName, start, stop, res) => {
         .on('end', function (err) {
             if (!err) {
                 console.log('conversion Done');
-                res.download(`./output/${fileName}_trim.mp4`, "file", function (err) {
+                res.download(`./output/${fileName}_trim.mp4`, `${fileName}.mp4`, function (err) {
                     fs.unlinkSync(`./output/${fileName}.mp4`);
                     fs.unlinkSync(`./output/${fileName}_trim.mp4`);
                 });

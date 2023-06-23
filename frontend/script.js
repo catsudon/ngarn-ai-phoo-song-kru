@@ -10,27 +10,14 @@ document.querySelectorAll(".button")[0].addEventListener("click", function () {
     let start = document.getElementById("start").value;
     let stop = document.getElementById("stop").value;
     
-    if(start > stop || start == "" || stop == "" ) alert("invalid input")
-    else
-    fetch(
-        `http://${backendIPAddress}/?url=${url}&start=${start}&stop=${stop}`
-    )
-    .then(response => {
-        if (response.ok) {
-          return response.blob(); // Convert the response to a Blob object
-        } else {
-          throw new Error('Error downloading the file');
-        }
-      })
-      .then(blob => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${url}_trimmed.mp4`; // Set the desired file name and extension
-        a.click(); // Trigger the download
-        URL.revokeObjectURL(url);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    if(start == "" || stop == "" || Number(start) > Number(stop)) alert("invalid input")
+    else window.open(`http://${backendIPAddress}/?url=${url}&start=${start}&stop=${stop}`);
+    
 });
+
+function downloadFile(url, fileName) {
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  link.click();
+}
